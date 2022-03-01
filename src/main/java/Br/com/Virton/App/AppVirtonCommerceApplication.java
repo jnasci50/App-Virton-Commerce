@@ -10,4 +10,6 @@ public class AppVirtonCommerceApplication {
 		SpringApplication.run(AppVirtonCommerceApplication.class, args);
 	}
 
+	
+	
 }

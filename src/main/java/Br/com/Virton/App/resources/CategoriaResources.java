@@ -4,28 +4,31 @@ package Br.com.Virton.App.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.loading.PrivateClassLoader;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import Br.com.Virton.App.domain.Categoria;
+import Br.com.Virton.App.servicies.CategoriaService;
 
 @RestController
 @RequestMapping(value ="/categorias")
 public class CategoriaResources {
+	
+	@Autowired
+	private CategoriaService serviceBuscarCategoria;
 
-	@RequestMapping(method=RequestMethod.GET )
-	public List<Categoria> listar() {
+	@RequestMapping(value ="/{Id}", method = RequestMethod.GET)
+	public ResponseEntity<?> listar(@PathVariable Integer Id) {
 		
-		Categoria categoria1 = new Categoria(1,"Informática");
-		Categoria categoria2 = new Categoria(2, "Escritório");
+	Categoria objBusCategoria = serviceBuscarCategoria.buscar(Id);
 		
-		List<Categoria> listaCategorias = new ArrayList<>();
-		
-		listaCategorias.add(categoria1);
-		listaCategorias.add(categoria2);
-		
-		return listaCategorias ;
+		return ResponseEntity.ok().body(objBusCategoria) ;
 		
 	}
 }
